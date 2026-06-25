@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>pls forgive me TT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; 
+      font-family: 'Noto Sans Thai', sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffe3ef 0%, transparent 30%),
+        radial-gradient(circle at top right, #dff4ff 0%, transparent 30%),
+        linear-gradient(180deg, #fff8fb 0%, #fff1f6 45%, #f3fbff 100%);
+    }
+
+    .card {
+      width: min(92%, 430px);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 214, 230, 0.9);
+      border-radius: 30px;
+      padding: 28px 22px;
+      box-shadow: 0 15px 35px rgba(220, 190, 210, 0.25);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 10;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'Itim', cursive;
+      font-size: 36px;
+      color: #dc8fad;
+      font-weight: 400;
+    }
+
+    #screen-ask .subtitle {
+      margin: 12px 0 16px;
+      color: #8c7b8c;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .apology-img {
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      border-radius: 18px;
+      margin: 0 auto 10px auto;
+      display: block;
+    }
+
+    .btn-group {
+      position: relative;
+      width: 100%;
+      height: 85px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 28px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease; 
+      font-family: 'Noto Sans Thai', sans-serif;
+      user-select: none; 
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #yes {
+      background: #9fd8ff;
+      box-shadow: 0 8px 18px rgba(159, 216, 255, 0.45);
+      z-index: 2;
+    }
+    #yes:hover, #yes:active { transform: scale(1.05); background: #8accf7; }
+
+    #no {
+      background: #ffbfd5;
+      box-shadow: 0 8px 18px rgba(255, 191, 213, 0.45);
+      z-index: 100; 
+    }
+
+    .small-text {
+      color: #a18ea0;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    #screen-success {
+      display: none;
+      width: min(92%, 500px);
+    }
+
+    #screen-success p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #877487;
+      margin: 12px 0 20px;
+    }
+
+    .gif-wrap {
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .gif-wrap img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      border-radius: 22px;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="screen-ask">
+    <h1>pls forgive me</h1>
+    <p class="subtitle">
+      เค้าขอโทษที่ทำให้หงุดหงิดนะคะ<br>
+      ดีกันได้ไหมคะ TT
+    </p>
+
+    <img src="https://media.tenor.com/925LDfyVUGEAAAAj/cute-sad.gif" class="apology-img" alt="sad cat">
+
+    <div class="small-text">เค้าหงอย ๆ แบบนี้ทั้งคืนเลย</div>
+
+    <div class="btn-group">
+      <button id="yes">yes</button>
+      <button id="no">no</button>
+    </div>
+  </div>
+
+  <div class="card" id="screen-success">
+    <h1>เย่ ดีกันแล้วนะคะ</h1>
+    <p>
+      เค้าขอโทษที่ทำตัวไม่ดีนะ<br>
+      เค้ารักเธอนะคะ
+    </p>
+    <div class="gif-wrap">
+      <img src="https://media1.tenor.com/m/_hUq1BSUsiMAAAAd/cat-cute.gif" alt="happy cat">
+    </div>
+  </div>
+
+  <script>
+    const noBtn   = document.getElementById('no');
+    const yesBtn  = document.getElementById('yes');
+    const ask     = document.getElementById('screen-ask');
+    const success = document.getElementById('screen-success');
+
+    const runaway = (e) => {
+      if (e.type === 'touchstart') {
+        e.preventDefault();
+      }
+
+      if (noBtn.style.position !== 'fixed') {
+        const rect = noBtn.getBoundingClientRect();
+        
+        const ghost = document.createElement('div');
+        ghost.style.width = rect.width + 'px';
+        ghost.style.height = rect.height + 'px';
+        noBtn.parentNode.insertBefore(ghost, noBtn);
+
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = rect.left + 'px';
+        noBtn.style.top = rect.top + 'px';
+        
+        noBtn.offsetHeight; 
+      }
+
+      const maxX = window.innerWidth  - noBtn.offsetWidth  - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+      
+      noBtn.style.left = Math.max(10, Math.random() * maxX) + 'px';
+      noBtn.style.top  = Math.max(10, Math.random() * maxY) + 'px';
+    };
+
+    noBtn.addEventListener('mouseover', runaway);
+    noBtn.addEventListener('touchstart', runaway, { passive: false });
+
+    yesBtn.addEventListener('click', () => {
+      ask.style.opacity   = '0';
+      ask.style.transform = 'scale(0.95)';
+      noBtn.style.display = 'none';
+
+      setTimeout(() => {
+        ask.style.display     = 'none';
+        success.style.display = 'block';
+        
+        success.style.opacity   = '0';
+        success.style.transform = 'scale(0.95)';
+        requestAnimationFrame(() => {
+          success.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          success.style.opacity    = '1';
+          success.style.transform  = 'scale(1)';
+        });
+      }, 400);
+    });
+  </script>
+</body>
+</html>
